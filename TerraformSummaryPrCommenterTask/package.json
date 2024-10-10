@@ -1,0 +1,22 @@
+{
+  "name": "terraformsummaryprcommentertask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    // "package": "tfx extension create --manifest-globs vss-extension.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.7.5",
+    "azure-pipelines-task-lib": "^4.17.3"
+  },
+  "devDependencies": {
+    "@types/q": "^1.5.8",
+    "typescript": "^5.6.3"
+  }
+}

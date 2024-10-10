@@ -1,2 +1,0 @@
-# TerraformSummaryPRCommenter
-TerraformSummaryPRComment

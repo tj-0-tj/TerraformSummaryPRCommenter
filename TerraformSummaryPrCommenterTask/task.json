@@ -1,0 +1,31 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "BAD72D2E-20B4-42F7-B112-13FB279ED9AF",
+    "name": "terraformsummaryprcommentertask",
+    "friendlyName": "terraform summary pr commenter task",
+    "description": "terraform summary pr commenter task",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "TJ",
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Echo $(samplestring)",
+    "inputs": [
+        {
+            "name": "samplestring",
+            "type": "string",
+            "label": "Sample String",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "A sample string"
+        }
+    ],
+    "execution": {
+        "Node10": {
+            "target": "index.js"
+        }
+    }
+}
