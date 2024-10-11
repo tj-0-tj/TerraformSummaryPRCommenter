@@ -21,7 +21,7 @@ steps:
 - script: |
     pwd
     ls -alh 
-    npm install
+    cd TerraformSummaryPrCommenterTask && npm install
   displayName: 'Install npm Packages'
   
 # Step to check Node.js version

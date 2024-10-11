@@ -1,7 +1,8 @@
 {
-  "name": "terraformsummaryprcommentertask",
-  "version": "1.0.0",
+  "name": "terraform-summary-pr-commenter-task",
+  "version": "1.4.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
