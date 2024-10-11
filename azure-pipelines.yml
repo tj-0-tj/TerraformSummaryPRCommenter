@@ -11,7 +11,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+# Install Node.js 22
+- script: |
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+  displayName: 'Install Node.js 22'
 
+# Install npm packages
+- script: |
+    npm install
+  displayName: 'Install npm Packages'
+  
 # Step to check Node.js version
 - script: |
     node -v
