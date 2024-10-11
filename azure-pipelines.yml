@@ -13,7 +13,14 @@ pool:
 steps:
 - task: terraformsummaryprcommentertask@1
   inputs:
-    samplestring: 'TJ says hello'
+    ADO_STAGE_NAME: 'test'
+    ADO_STAGE_LINK: 'test'
+    ADO_JOB_LINK: 'test'
+    GITHUB_TOKEN: 'test'
+    GITHUB_OWNER: 'test'
+    GITHUB_REPO: 'test'
+    GITHUB_ISSUE_NUMBER: 'test'
+    ENVIRONMENT: 'DEV'
   
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
