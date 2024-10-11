@@ -9,7 +9,7 @@
     "author": "TJ",
     "version": {
         "Major": 1,
-        "Minor": 5,
+        "Minor": 6,
         "Patch": 0
     },
     "instanceNameFormat": "Terraform Summary PR Commenter",
@@ -88,7 +88,7 @@
         }
     ],
     "execution": {
-        "Node": {
+        "Node18": {
             "target": "index.js"
         }
     }
