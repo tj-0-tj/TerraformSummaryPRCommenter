@@ -11,38 +11,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-# Install Node.js 22
-- script: |
-    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-  displayName: 'Install Node.js 22'
-
-# Install npm packages
-- script: |
-    pwd
-    ls -alh 
-    cd TerraformSummaryPrCommenterTask && npm install
-  displayName: 'Install npm Packages'
-  
 # Step to check Node.js version
 - script: |
     node -v
   displayName: 'Check Node.js Version'
-
-# Step to check installed npm modules
-- script: |
-    npm list
-  displayName: 'Check Installed npm Modules'
-  
 - task: terraform-summary-pr-commenter-task@1
   inputs:
     ADO_STAGE_NAME: 'test'
     ADO_STAGE_LINK: 'test'
     ADO_JOB_LINK: 'test'
-    GITHUB_TOKEN: 'test'
-    GITHUB_OWNER: 'test'
-    GITHUB_REPO: 'test'
-    GITHUB_ISSUE_NUMBER: 'test'
+    GITHUB_TOKEN: $(GITHUB_TOKEN)
+    GITHUB_OWNER: 'tj-0-tj'
+    GITHUB_REPO: 'tf-rnd-azure-modules'
+    GITHUB_ISSUE_NUMBER: '5'
     ENVIRONMENT: 'DEV'
   
 - script: echo Hello, world!
