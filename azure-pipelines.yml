@@ -11,6 +11,17 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+# Step to check Node.js version
+- script: |
+    node -v
+  displayName: 'Check Node.js Version'
+
+# Step to check installed npm modules
+- script: |
+    npm list
+  displayName: 'Check Installed npm Modules'
+  
 - task: terraformsummaryprcommentertask@1
   inputs:
     ADO_STAGE_NAME: 'test'
