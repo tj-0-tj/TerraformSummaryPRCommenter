@@ -2,18 +2,31 @@ import axios from 'axios';
 import * as fs from 'fs';
 import * as _ from 'lodash';
 import tl = require('azure-pipelines-task-lib/task');
+import * as dotenv from 'dotenv';
+dotenv.config();  // Load environment variables from .env file
 
+// Use environment variables for local testing, and ADO inputs in the pipeline
+const TERRAFORM_PLAN_PATH = process.env.TERRAFORM_PLAN_PATH || tl.getInput('TERRAFORM_PLAN_PATH', false) || './terraform-plan.json';
+const ADO_STAGE_NAME = _.escapeRegExp(process.env.ADO_STAGE_NAME || tl.getInput('ADO_STAGE_NAME', true) || 'default_stage_name');
+const ADO_JOB_LINK = process.env.ADO_JOB_LINK || tl.getInput('ADO_JOB_LINK', true) || '#';
+const ADO_STAGE_LINK = process.env.ADO_STAGE_LINK || tl.getInput('ADO_STAGE_LINK', true) || '#';
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN || tl.getInput('GITHUB_TOKEN', true) || '';
+const GITHUB_OWNER = process.env.GITHUB_OWNER || tl.getInput('GITHUB_OWNER', true) || '';
+const GITHUB_REPO = process.env.GITHUB_REPO || tl.getInput('GITHUB_REPO', true) || '';
+const GITHUB_ISSUE_NUMBER = process.env.GITHUB_ISSUE_NUMBER || tl.getInput('GITHUB_ISSUE_NUMBER', true) || '';
+const ENVIRONMENT = process.env.ENVIRONMENT || tl.getInput('ENVIRONMENT', true) || 'DEV';
 
-// Reading inputs from ADO task
-const TERRAFORM_PLAN_PATH: string = tl.getInput('TERRAFORM_PLAN_PATH', false) || './terraform-plan.json';
-const ADO_STAGE_NAME: string = _.escapeRegExp(tl.getInput('ADO_STAGE_NAME', true) || '');
-const ADO_JOB_LINK: string = tl.getInput('ADO_JOB_LINK', true) || '#';
-const ADO_STAGE_LINK: string = tl.getInput('ADO_STAGE_LINK', true) || '#';
-const GITHUB_TOKEN: string = tl.getInput('GITHUB_TOKEN', true) || '';
-const GITHUB_OWNER: string = tl.getInput('GITHUB_OWNER', true) || '';
-const GITHUB_REPO: string = tl.getInput('GITHUB_REPO', true) || '';
-const GITHUB_ISSUE_NUMBER: string = tl.getInput('GITHUB_ISSUE_NUMBER', true) || '';
-const ENVIRONMENT: string = tl.getInput('ENVIRONMENT', true) || '';
+// Log the values for debugging
+console.log('TERRAFORM_PLAN_PATH:', TERRAFORM_PLAN_PATH);
+console.log('ADO_STAGE_NAME:', ADO_STAGE_NAME);
+console.log('ADO_JOB_LINK:', ADO_JOB_LINK);
+console.log('ADO_STAGE_LINK:', ADO_STAGE_LINK);
+console.log('GITHUB_TOKEN:', GITHUB_TOKEN);  // Be cautious when logging sensitive information
+console.log('GITHUB_OWNER:', GITHUB_OWNER);
+console.log('GITHUB_REPO:', GITHUB_REPO);
+console.log('GITHUB_ISSUE_NUMBER:', GITHUB_ISSUE_NUMBER);
+console.log('ENVIRONMENT:', ENVIRONMENT);
+
 
 // Title for the comment
 const COMMENT_TITLE = "TF PLAN SUMMARY";

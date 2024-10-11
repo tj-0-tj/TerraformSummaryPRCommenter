@@ -34,7 +34,7 @@ steps:
     npm list
   displayName: 'Check Installed npm Modules'
   
-- task: terraformsummaryprcommentertask@1
+- task: terraform-summary-pr-commenter-task@1
   inputs:
     ADO_STAGE_NAME: 'test'
     ADO_STAGE_LINK: 'test'

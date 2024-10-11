@@ -1,0 +1,17 @@
+{
+  "format_version": "0.1",
+  "terraform_version": "1.0.0",
+  "planned_values": {
+    "root_module": {}
+  },
+  "resource_changes": [],
+  "output_changes": {},
+  "prior_state": {
+    "values": {
+      "root_module": {}
+    }
+  },
+  "configuration": {
+    "root_module": {}
+  }
+}
