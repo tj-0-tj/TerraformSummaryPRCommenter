@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -168,16 +159,16 @@ ${jobSummaries.map(job => job.summary).join('\n')}
 };
 exports.generateStageSection = generateStageSection;
 // Fetch comments from the GitHub issue
-const getIssueComments = () => __awaiter(void 0, void 0, void 0, function* () {
+const getIssueComments = async () => {
     try {
-        const response = yield githubApi.get(`/issues/${GITHUB_ISSUE_NUMBER}/comments`);
+        const response = await githubApi.get(`/issues/${GITHUB_ISSUE_NUMBER}/comments`);
         return response.data;
     }
     catch (error) {
         console.error(`Error fetching issue comments: ${error.message}`);
         throw error;
     }
-});
+};
 // Insert or update the stage section in the comment
 const updateOrInsertSection = (existingCommentBody, newJobSummary, stageName, environment) => {
     const startMarker = `<!-- START - ${stageName} -->`;
@@ -214,14 +205,14 @@ const updateOrInsertSection = (existingCommentBody, newJobSummary, stageName, en
     }
 };
 // Create or update a comment on the GitHub issue
-const postOrUpdateComment = (commentId, body) => __awaiter(void 0, void 0, void 0, function* () {
+const postOrUpdateComment = async (commentId, body) => {
     try {
         if (commentId) {
-            yield githubApi.patch(`/issues/comments/${commentId}`, { body });
+            await githubApi.patch(`/issues/comments/${commentId}`, { body });
             console.log('Comment successfully updated.');
         }
         else {
-            yield githubApi.post(`/issues/${GITHUB_ISSUE_NUMBER}/comments`, { body });
+            await githubApi.post(`/issues/${GITHUB_ISSUE_NUMBER}/comments`, { body });
             console.log('Comment successfully created.');
         }
     }
@@ -229,9 +220,9 @@ const postOrUpdateComment = (commentId, body) => __awaiter(void 0, void 0, void 
         console.error(`Error posting or updating the comment: ${error.message}`);
         throw error;
     }
-});
+};
 // Main function to handle the process
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
+const main = async () => {
     const terraformPlan = (0, exports.readTerraformPlan)();
     if (!terraformPlan) {
         console.error('Failed to read Terraform plan. Exiting.');
@@ -244,7 +235,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const { adds, updates, deletes, imports } = (0, exports.summarizeTerraformPlan)(terraformPlan);
     const newJobSummary = (0, exports.generateJobSummary)(adds, updates, deletes, imports, ENVIRONMENT);
     try {
-        const comments = yield getIssueComments();
+        const comments = await getIssueComments();
         let commentId = null;
         let existingCommentBody = '';
         const existingComment = comments.find((comment) => comment.body.startsWith(`## ${COMMENT_TITLE}`));
@@ -256,12 +247,12 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             existingCommentBody = `## ${COMMENT_TITLE}`;
         }
         const updatedCommentBody = updateOrInsertSection(existingCommentBody, newJobSummary, ADO_STAGE_NAME, ENVIRONMENT);
-        yield postOrUpdateComment(commentId, updatedCommentBody);
+        await postOrUpdateComment(commentId, updatedCommentBody);
     }
     catch (error) {
         console.error(`Error processing the comment: ${error.message}`);
     }
-});
+};
 exports.main = main;
 // Run the main function
 (0, exports.main)();
