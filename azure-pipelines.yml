@@ -97,3 +97,4 @@ steps:
     ADO_STAGE_LINK: '#stagelink'
     ENVIRONMENT: "DEV"
   displayName: 'Run Custom Task'
+  version: 1.1.0
