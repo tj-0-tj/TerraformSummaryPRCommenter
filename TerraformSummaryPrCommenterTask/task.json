@@ -88,8 +88,15 @@
         }
     ],
     "execution": {
-        "Node": {
-            "target": "index.js"
-        }
+    "Node": {
+      "target": "./index.js",
+      "argumentFormat": ""
     }
+  },
+  "minimumAgentVersion": "2.144.0",
+    "runsOn": [
+        "Windows",
+        "MacOS",
+        "Linux"
+    ]
 }
