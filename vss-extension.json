@@ -1,15 +1,15 @@
 {
     "manifestVersion": 1,
     "id": "terraform-summary-pr-commenter-task",
-    "name": "terraform summary pr commenter task",
-    "version": "1.6.0",
+    "name": "Terraform Summary PR Commenter Task",
+    "version": "1.8.0",
     "publisher": "ClarityAISolutions",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
+    "description": "Post a summary of the Terraform plan to a GitHub PR.",
     "categories": [
         "Azure Pipelines"
     ],
@@ -18,12 +18,13 @@
     },
     "files": [
         {
-            "path": "TerraformSummaryPrCommenterTask"
+            "path": "TerraformSummaryPrCommenterTask",
+            "addressable": true
         }
     ],
     "contributions": [
         {
-            "id": "custom-terraform-summary-pr-commenter-task",
+            "id": "terraform-summary-pr-commenter-task",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"

@@ -9,9 +9,14 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
+variables: 
+  - group: GH
 
 steps:
 # Step to check Node.js version
+- script: |
+    ls -alh TerraformSummaryPrCommenterTask
+  displayName: 'TerraformSummaryPrCommenterTask ls'
 - script: |
     node -v
   displayName: 'Check Node.js Version'
@@ -20,16 +25,9 @@ steps:
     ADO_STAGE_NAME: 'test'
     ADO_STAGE_LINK: 'test'
     ADO_JOB_LINK: 'test'
-    GITHUB_TOKEN: $(GITHUB_TOKEN)
+    GITHUB_TOKEN: $(GH-PAT)
     GITHUB_OWNER: 'tj-0-tj'
     GITHUB_REPO: 'tf-rnd-azure-modules'
     GITHUB_ISSUE_NUMBER: '5'
     ENVIRONMENT: 'DEV'
   
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
