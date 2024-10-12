@@ -65,20 +65,15 @@ steps:
     "
   displayName: 'Bump Extension Version in vss-extension.json'
   workingDirectory: $(System.DefaultWorkingDirectory)
-  
+
 # Step 6: Install TFX CLI globally
 - script: |
     npm install -g tfx-cli
   displayName: 'Install TFX CLI'
 
-# Step 7: Package the extension using tfx-cli with .vscodeignore (ensure the command runs in the root folder)
-- script: |
-    tfx extension create --manifest-globs vss-extension.json --no-ignore
-  displayName: 'Package Azure DevOps Extension'
-
 # Step 8: Publish the extension to Azure DevOps
 - script: |
-    tfx extension publish --service-url https://dev.azure.com/$(organizationName) --publisher $(publisherId) --extension-id $(extensionId) --token $(adoPat)
+    tfx extension publish --manifest-globs vss-extension.json --share-with $(organizationName) --token $(adoPat)
   displayName: 'Publish Extension to Azure DevOps'
 
 # Step 8: Use the custom task published by the extension
