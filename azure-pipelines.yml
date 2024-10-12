@@ -78,6 +78,7 @@ steps:
     console.log('Updated version to', extension.version);
     "
   displayName: 'Bump Extension Version in vss-extension.json'
+  workingDirectory: $(System.DefaultWorkingDirectory)
 
 # Step 6: Install TFX CLI globally
 - script: |
