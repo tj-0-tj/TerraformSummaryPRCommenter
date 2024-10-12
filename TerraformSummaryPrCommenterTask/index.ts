@@ -16,6 +16,8 @@ const GITHUB_REPO = process.env.GITHUB_REPO || tl.getInput('GITHUB_REPO', true) 
 const GITHUB_ISSUE_NUMBER = process.env.GITHUB_ISSUE_NUMBER || tl.getInput('GITHUB_ISSUE_NUMBER', true) || '';
 const ENVIRONMENT = process.env.ENVIRONMENT || tl.getInput('ENVIRONMENT', true) || 'DEV';
 
+try {
+
 // Log the values for debugging
 console.log('TERRAFORM_PLAN_PATH:', TERRAFORM_PLAN_PATH);
 console.log('ADO_STAGE_NAME:', ADO_STAGE_NAME);
@@ -27,7 +29,13 @@ console.log('GITHUB_REPO:', GITHUB_REPO);
 console.log('GITHUB_ISSUE_NUMBER:', GITHUB_ISSUE_NUMBER);
 console.log('ENVIRONMENT:', ENVIRONMENT);
 
-
+} catch (err) {
+    if (err instanceof Error) {
+        tl.setResult(tl.TaskResult.Failed, err.message);
+    } else {
+        tl.setResult(tl.TaskResult.Failed, "An unknown error occurred");
+    }
+}
 // // Title for the comment
 // const COMMENT_TITLE = "TF PLAN SUMMARY";
 

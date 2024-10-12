@@ -37,16 +37,26 @@ const GITHUB_OWNER = process.env.GITHUB_OWNER || tl.getInput('GITHUB_OWNER', tru
 const GITHUB_REPO = process.env.GITHUB_REPO || tl.getInput('GITHUB_REPO', true) || '';
 const GITHUB_ISSUE_NUMBER = process.env.GITHUB_ISSUE_NUMBER || tl.getInput('GITHUB_ISSUE_NUMBER', true) || '';
 const ENVIRONMENT = process.env.ENVIRONMENT || tl.getInput('ENVIRONMENT', true) || 'DEV';
-// Log the values for debugging
-console.log('TERRAFORM_PLAN_PATH:', TERRAFORM_PLAN_PATH);
-console.log('ADO_STAGE_NAME:', ADO_STAGE_NAME);
-console.log('ADO_JOB_LINK:', ADO_JOB_LINK);
-console.log('ADO_STAGE_LINK:', ADO_STAGE_LINK);
-console.log('GITHUB_TOKEN:', GITHUB_TOKEN); // Be cautious when logging sensitive information
-console.log('GITHUB_OWNER:', GITHUB_OWNER);
-console.log('GITHUB_REPO:', GITHUB_REPO);
-console.log('GITHUB_ISSUE_NUMBER:', GITHUB_ISSUE_NUMBER);
-console.log('ENVIRONMENT:', ENVIRONMENT);
+try {
+    // Log the values for debugging
+    console.log('TERRAFORM_PLAN_PATH:', TERRAFORM_PLAN_PATH);
+    console.log('ADO_STAGE_NAME:', ADO_STAGE_NAME);
+    console.log('ADO_JOB_LINK:', ADO_JOB_LINK);
+    console.log('ADO_STAGE_LINK:', ADO_STAGE_LINK);
+    console.log('GITHUB_TOKEN:', GITHUB_TOKEN); // Be cautious when logging sensitive information
+    console.log('GITHUB_OWNER:', GITHUB_OWNER);
+    console.log('GITHUB_REPO:', GITHUB_REPO);
+    console.log('GITHUB_ISSUE_NUMBER:', GITHUB_ISSUE_NUMBER);
+    console.log('ENVIRONMENT:', ENVIRONMENT);
+}
+catch (err) {
+    if (err instanceof Error) {
+        tl.setResult(tl.TaskResult.Failed, err.message);
+    }
+    else {
+        tl.setResult(tl.TaskResult.Failed, "An unknown error occurred");
+    }
+}
 // // Title for the comment
 // const COMMENT_TITLE = "TF PLAN SUMMARY";
 // // GitHub API configuration
