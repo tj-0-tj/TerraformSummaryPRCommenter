@@ -31,21 +31,6 @@ steps:
     npm install
   displayName: 'Install npm dependencies'
 
-# Step 3: Bump the extension version in vss-extension.json
-- script: |
-    cd TerraformSummaryPrCommenterTask
-    node -e "
-    const fs = require('fs');
-    const filePath = './vss-extension.json';
-    const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    const versionParts = extension.version.split('.');
-    versionParts[2] = parseInt(versionParts[2]) + 1;  // Bump patch version
-    extension.version = versionParts.join('.');
-    fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
-    console.log('Updated version to', extension.version);
-    "
-  displayName: 'Bump Extension Version'
-
 # Step 4: Install TFX CLI globally
 - script: |
     cd TerraformSummaryPrCommenterTask
@@ -65,6 +50,7 @@ steps:
 - script: |
     ls -alh
     pwd
+  displayName: 'list'
 # Step 5: Bump the extension version in vss-extension.json (located in the root)
 - script: |
     node -e "
@@ -79,7 +65,7 @@ steps:
     "
   displayName: 'Bump Extension Version in vss-extension.json'
   workingDirectory: $(System.DefaultWorkingDirectory)
-
+  
 # Step 6: Install TFX CLI globally
 - script: |
     npm install -g tfx-cli
