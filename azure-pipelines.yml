@@ -1,33 +1,100 @@
-# Starter pipeline
-
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
-variables: 
+  vmImage: 'ubuntu-latest'
+
+variables:
   - group: GH
+  - name: organizationName
+    value: 'tj0798'
+  - name: publisherId
+    value: 'ClarityAISolutions'        # Publisher ID from Azure DevOps marketplace
+  - name: extensionId
+    value: 'terraform-summary-pr-commenter-task' # Your extension ID
+  - name: extensionVersion
+    value: '1.0.0'
+  - name: adoPat
+    value: $(ADO_PERSONAL_ACCESS_TOKEN)     # Store your ADO PAT as a secret in the pipeline
+
 
 steps:
-# Step to check Node.js version
+# Step 1: Install Node.js (to use a script for version bumping)
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'                    # Ensure Node.js 18 is used
+  displayName: 'Use Node.js 18.x'
+
+# Step 2: Install dependencies (npm packages)
 - script: |
-    ls -alh TerraformSummaryPrCommenterTask
-  displayName: 'TerraformSummaryPrCommenterTask ls'
+    cd TerraformSummaryPrCommenterTask
+    npm install
+  displayName: 'Install npm dependencies'
+
+# Step 3: Bump the extension version in vss-extension.json
 - script: |
-    node -v
-  displayName: 'Check Node.js Version'
+    cd TerraformSummaryPrCommenterTask
+    node -e "
+    const fs = require('fs');
+    const filePath = './vss-extension.json';
+    const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    const versionParts = extension.version.split('.');
+    versionParts[2] = parseInt(versionParts[2]) + 1;  // Bump patch version
+    extension.version = versionParts.join('.');
+    fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
+    console.log('Updated version to', extension.version);
+    "
+  displayName: 'Bump Extension Version'
+
+# Step 4: Install TFX CLI globally
+- script: |
+    cd TerraformSummaryPrCommenterTask
+    npm install -g tfx-cli
+  displayName: 'Install TFX CLI'
+
+- script: |
+    cd TerraformSummaryPrCommenterTask
+    npm prune --production
+  displayName: 'Prune node_modules for Production'
+# Step 4: Clean up unnecessary files in node_modules in the TerraformSummaryPrCommenterTask directory
+- script: |
+    cd TerraformSummaryPrCommenterTask
+    find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
+  displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
+
+# Step 5: Bump the extension version in vss-extension.json (located in the root)
+- script: |
+    node -e "
+    const fs = require('fs');
+    const filePath = './vss-extension.json';
+    const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    const versionParts = extension.version.split('.');
+    versionParts[2] = parseInt(versionParts[2]) + 1;  // Bump patch version
+    extension.version = versionParts.join('.');
+    fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
+    console.log('Updated version to', extension.version);
+    "
+  displayName: 'Bump Extension Version in vss-extension.json'
+
+# Step 6: Install TFX CLI globally
+- script: |
+    npm install -g tfx-cli
+  displayName: 'Install TFX CLI'
+
+# Step 7: Package the extension using tfx-cli with .vscodeignore (ensure the command runs in the root folder)
+- script: |
+    tfx extension create --manifest-globs vss-extension.json --no-ignore
+  displayName: 'Package Azure DevOps Extension'
+
+# Step 8: Publish the extension to Azure DevOps
+- script: |
+    tfx extension publish --service-url https://dev.azure.com/$(organizationName) --publisher $(publisherId) --extension-id $(extensionId) --token $(adoPat)
+  displayName: 'Publish Extension to Azure DevOps'
+
+# Step 8: Use the custom task published by the extension
 - task: terraform-summary-pr-commenter-task@1
   inputs:
-    ADO_STAGE_NAME: 'test'
-    ADO_STAGE_LINK: 'test'
-    ADO_JOB_LINK: 'test'
-    GITHUB_TOKEN: $(GH-PAT)
-    GITHUB_OWNER: 'tj-0-tj'
-    GITHUB_REPO: 'tf-rnd-azure-modules'
-    GITHUB_ISSUE_NUMBER: '5'
-    ENVIRONMENT: 'DEV'
-  
+    ADO_STAGE_NAME: 'Test Stage'
+    GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
+    TERRAFORM_PLAN_PATH: './terraform-plan.json'
+  displayName: 'Run Custom Task'

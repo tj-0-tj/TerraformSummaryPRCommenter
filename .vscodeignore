@@ -1,0 +1,12 @@
+**/*.md
+**/*.yml
+**/test/*
+**/docs/*
+**/examples/*
+**/.vscode/
+**/.git/
+**/node_modules/.bin/
+**/node_modules/**/*.md
+**/node_modules/**/*.yml
+**/node_modules/**/*.json
+**/node_modules/**/*.map
