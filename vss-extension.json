@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "terraform-summary-pr-commenter-task",
   "name": "Terraform Summary PR Commenter Task",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "publisher": "ClarityAISolutions",
   "targets": [
     {
