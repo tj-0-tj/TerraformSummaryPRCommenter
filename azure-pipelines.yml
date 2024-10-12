@@ -42,22 +42,35 @@ steps:
   displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
 
 - script: |
-    ls -alh
-    pwd
-  displayName: 'list'
-# Step 5: Bump the extension version in vss-extension.json (located in the root)
-- script: |
+    CURRENT_VERSION=$(tfx extension show --service-url https://marketplace.visualstudio.com \
+                      --publisher $(publisherId) \
+                      --extension-id $(extensionId) \
+                      --token $(adoPat) \
+                      --json | jq -r '.versions[0].version')
+    echo "Current published version: $CURRENT_VERSION"
+    
+    # Split the version into major, minor, and patch
+    IFS='.' read -r -a VERSION_PARTS <<< "$CURRENT_VERSION"
+    MAJOR=${VERSION_PARTS[0]}
+    MINOR=${VERSION_PARTS[1]}
+    PATCH=${VERSION_PARTS[2]}
+    
+    # Bump the patch version
+    NEW_PATCH=$((PATCH+1))
+    NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+    
+    echo "New version to be published: $NEW_VERSION"
+
+    # Update the vss-extension.json file with the new version
     node -e "
     const fs = require('fs');
     const filePath = './vss-extension.json';
     const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    const versionParts = extension.version.split('.');
-    versionParts[2] = parseInt(versionParts[2]) + 1;  // Bump patch version
-    extension.version = versionParts.join('.');
+    extension.version = '$NEW_VERSION';
     fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
-    console.log('Updated version to', extension.version);
+    console.log('Updated version in vss-extension.json:', extension.version);
     "
-  displayName: 'Bump Extension Version in vss-extension.json'
+  displayName: 'Check Current Version and Bump Patch Version'
   workingDirectory: $(System.DefaultWorkingDirectory)
 
 # Step 6: Install TFX CLI globally
