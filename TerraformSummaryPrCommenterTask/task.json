@@ -10,7 +10,7 @@
     "version": {
         "Major": 1,
         "Minor": 1,
-        "Patch": 0
+        "Patch": 3
     },
     "instanceNameFormat": "Terraform Summary PR Commenter",
     "inputs": [
