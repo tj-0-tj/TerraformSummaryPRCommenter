@@ -64,6 +64,7 @@ steps:
 
 # Step 5: Bump the extension version in vss-extension.json (located in the root)
 - script: |
+    ls -alh 
     node -e "
     const fs = require('fs');
     const filePath = './vss-extension.json';
