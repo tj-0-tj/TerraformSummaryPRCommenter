@@ -79,7 +79,6 @@ steps:
     GITHUB_OWNER: tj-0-tj
     GITHUB_REPO: tf-rnd-azure-modules
     GITHUB_ISSUE_NUMBER: '5'
-    ADO_STAGE_NAME: AIPL_SERVICES1
     ADO_JOB_NAME: AIPL_SERVICES_CTL_FCT1
     ADO_JOB_LINK: '#joblink'
     ADO_STAGE_LINK: '#stagelink'
