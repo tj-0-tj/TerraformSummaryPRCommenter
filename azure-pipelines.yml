@@ -62,9 +62,11 @@ steps:
     find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
   displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
 
+- script: |
+    ls -alh
+    pwd
 # Step 5: Bump the extension version in vss-extension.json (located in the root)
 - script: |
-    ls -alh 
     node -e "
     const fs = require('fs');
     const filePath = './vss-extension.json';

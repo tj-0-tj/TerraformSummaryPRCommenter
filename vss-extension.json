@@ -1,37 +1,37 @@
 {
-    "manifestVersion": 1,
-    "id": "terraform-summary-pr-commenter-task",
-    "name": "Terraform Summary PR Commenter Task",
-    "version": "1.0.0",
-    "publisher": "ClarityAISolutions",
-    "targets": [
-        {
-            "id": "Microsoft.VisualStudio.Services"
-        }
-    ],    
-    "description": "Post a summary of the Terraform plan to a GitHub PR.",
-    "categories": [
-        "Azure Pipelines"
-    ],
-    "icons": {
-        "default": "images/extension-icon.png"        
-    },
-    "files": [
-        {
-            "path": "TerraformSummaryPrCommenterTask",
-            "addressable": true
-        }
-    ],
-    "contributions": [
-        {
-            "id": "terraform-summary-pr-commenter-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "TerraformSummaryPrCommenterTask"
-            }
-        }
-    ]
+  "manifestVersion": 1,
+  "id": "terraform-summary-pr-commenter-task",
+  "name": "Terraform Summary PR Commenter Task",
+  "version": "1.0.1",
+  "publisher": "ClarityAISolutions",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "description": "Post a summary of the Terraform plan to a GitHub PR.",
+  "categories": [
+    "Azure Pipelines"
+  ],
+  "icons": {
+    "default": "images/extension-icon.png"
+  },
+  "files": [
+    {
+      "path": "TerraformSummaryPrCommenterTask",
+      "addressable": true
+    }
+  ],
+  "contributions": [
+    {
+      "id": "terraform-summary-pr-commenter-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "TerraformSummaryPrCommenterTask"
+      }
+    }
+  ]
 }
