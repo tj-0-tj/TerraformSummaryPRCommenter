@@ -19,6 +19,9 @@ variables:
 
 
 steps:
+- script: |
+    sudo apt-get -y install jq
+  displayName: 'Install jq for JSON parsing'
 # Step 1: Install Node.js (to use a script for version bumping)
 - task: NodeTool@0
   inputs:
@@ -26,7 +29,8 @@ steps:
   displayName: 'Use Node.js 18.x'
 
 # Step 2: Install dependencies (npm packages)
-- script: |
+- script: | 
+    
     cd TerraformSummaryPrCommenterTask
     npm install
   displayName: 'Install npm dependencies'
