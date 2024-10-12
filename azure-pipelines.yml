@@ -19,9 +19,7 @@ variables:
 
 
 steps:
-- script: |
-    sudo apt-get -y install jq
-  displayName: 'Install jq for JSON parsing'
+
 # Step 1: Install Node.js (to use a script for version bumping)
 - task: NodeTool@0
   inputs:
@@ -45,6 +43,11 @@ steps:
     find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
   displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
 
+# Step 6: Install TFX CLI globally
+- script: |
+    npm install -g tfx-cli
+  displayName: 'Install TFX CLI'
+  
 - script: |
     CURRENT_VERSION=$(tfx extension show --service-url https://marketplace.visualstudio.com \
                       --publisher $(publisherId) \
@@ -76,11 +79,6 @@ steps:
     "
   displayName: 'Check Current Version and Bump Patch Version'
   workingDirectory: $(System.DefaultWorkingDirectory)
-
-# Step 6: Install TFX CLI globally
-- script: |
-    npm install -g tfx-cli
-  displayName: 'Install TFX CLI'
 
 # Step 8: Publish the extension to Azure DevOps
 - script: |
