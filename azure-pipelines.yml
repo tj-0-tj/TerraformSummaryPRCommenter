@@ -31,12 +31,6 @@ steps:
     npm install
   displayName: 'Install npm dependencies'
 
-# Step 4: Install TFX CLI globally
-- script: |
-    cd TerraformSummaryPrCommenterTask
-    npm install -g tfx-cli
-  displayName: 'Install TFX CLI'
-
 - script: |
     cd TerraformSummaryPrCommenterTask
     npm prune --production
@@ -81,5 +75,13 @@ steps:
   inputs:
     ADO_STAGE_NAME: 'Test Stage'
     GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
-    TERRAFORM_PLAN_PATH: './terraform-plan.json'
+    TERRAFORM_PLAN_PATH: './TerraformSummaryPrCommenterTask/terraform-plan.json'
+    GITHUB_OWNER: tj-0-tj
+    GITHUB_REPO: tf-rnd-azure-modules
+    GITHUB_ISSUE_NUMBER: '5'
+    ADO_STAGE_NAME: AIPL_SERVICES1
+    ADO_JOB_NAME: AIPL_SERVICES_CTL_FCT1
+    ADO_JOB_LINK: '#joblink'
+    ADO_STAGE_LINK: '#stagelink'
+    ENVIRONMENT: "DEV"
   displayName: 'Run Custom Task'
