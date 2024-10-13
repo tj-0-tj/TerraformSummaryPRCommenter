@@ -25,11 +25,11 @@ steps:
 #   displayName: 'Use Node.js 18.x'
 
 # Step 2: Install dependencies (npm packages)
-# - script: | 
+- script: | 
     
-#     cd TerraformSummaryPrCommenterTask
-#     npm install
-#   displayName: 'Install npm dependencies'
+    cd TerraformSummaryPrCommenterTask
+    npm install
+  displayName: 'Install npm dependencies'
 
 # - script: |
 #     cd TerraformSummaryPrCommenterTask
