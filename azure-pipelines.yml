@@ -19,10 +19,10 @@ variables:
 steps:
 
 # Step 1: Install Node.js (to use a script for version bumping)
-# - task: NodeTool@0
-#   inputs:
-#     versionSpec: '18.x'                    # Ensure Node.js 18 is used
-#   displayName: 'Use Node.js 18.x'
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'                    # Ensure Node.js 18 is used
+  displayName: 'Use Node.js 18.x'
 
 # Step 2: Install dependencies (npm packages)
 - script: | 
