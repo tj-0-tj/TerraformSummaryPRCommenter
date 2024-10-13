@@ -26,6 +26,7 @@
     "task.json",
     "node_modules/axios",
     "node_modules/lodash",
+    "node_modules/dotenv",
     "node_modules/azure-pipelines-task-lib"
   ]
 }

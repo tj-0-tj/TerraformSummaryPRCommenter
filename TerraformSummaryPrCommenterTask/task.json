@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-    "id": "BAD72D2E-20B4-42F7-B112-13FB279ED9AF",
+    "id": "38DB9834-6F6F-40C4-ABB0-B753C8B6C016",
     "name": "terraform-summary-pr-commenter-task",
     "friendlyName": "terraform summary pr commenter task",
     "description": "terraform summary pr commenter task",
@@ -8,9 +8,9 @@
     "category": "Utility",
     "author": "TJ",
     "version": {
-        "Major": 1,
-        "Minor": 1,
-        "Patch": 3
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 2
     },
     "instanceNameFormat": "Terraform Summary PR Commenter",
     "inputs": [
@@ -89,7 +89,7 @@
     ],
     "execution": {
     "Node": {
-      "target": "./index.js",
+      "target": "index.js",
       "argumentFormat": ""
     }
   },
