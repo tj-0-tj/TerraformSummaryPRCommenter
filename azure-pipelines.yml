@@ -84,7 +84,7 @@ steps:
 #   displayName: 'Publish Extension to Azure DevOps'
 
 # Step 8: Use the custom task published by the extension
-- task: terraformsummaryprcommentertask@1
+- task: terraform-summary-pr-commenter-task@1
   inputs:
     ADO_STAGE_NAME: 'Test Stage'
     GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
