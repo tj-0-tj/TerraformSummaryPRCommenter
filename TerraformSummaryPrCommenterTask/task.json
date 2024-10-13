@@ -8,9 +8,9 @@
     "category": "Utility",
     "author": "TJ",
     "version": {
-        "Major": 0,
-        "Minor": 0,
-        "Patch": 2
+        "Major": 1,
+        "Minor": 2,
+        "Patch": 0
     },
     "instanceNameFormat": "Terraform Summary PR Commenter",
     "inputs": [
