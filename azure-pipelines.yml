@@ -31,57 +31,57 @@ steps:
     npm install
   displayName: 'Install npm dependencies'
 
-- script: |
-    cd TerraformSummaryPrCommenterTask
-    npm prune --production
-  displayName: 'Prune node_modules for Production'
-# Step 4: Clean up unnecessary files in node_modules in the TerraformSummaryPrCommenterTask directory
-- script: |
-    cd TerraformSummaryPrCommenterTask
-    find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
-  displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
+# - script: |
+#     cd TerraformSummaryPrCommenterTask
+#     npm prune --production
+#   displayName: 'Prune node_modules for Production'
+# # Step 4: Clean up unnecessary files in node_modules in the TerraformSummaryPrCommenterTask directory
+# - script: |
+#     cd TerraformSummaryPrCommenterTask
+#     find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
+#   displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
 
-# Step 6: Install TFX CLI globally
-- script: |
-    npm install -g tfx-cli
-  displayName: 'Install TFX CLI'
+# # Step 6: Install TFX CLI globally
+# - script: |
+#     npm install -g tfx-cli
+#   displayName: 'Install TFX CLI'
 
-- script: |
-    CURRENT_VERSION=$(tfx extension show --service-url https://marketplace.visualstudio.com \
-                      --publisher $(publisherId) \
-                      --extension-id $(extensionId) \
-                      --token $(adoPat) \
-                      --json | jq -r '.versions[0].version')
-    echo "Current published version: $CURRENT_VERSION"
+# - script: |
+#     CURRENT_VERSION=$(tfx extension show --service-url https://marketplace.visualstudio.com \
+#                       --publisher $(publisherId) \
+#                       --extension-id $(extensionId) \
+#                       --token $(adoPat) \
+#                       --json | jq -r '.versions[0].version')
+#     echo "Current published version: $CURRENT_VERSION"
     
-    # Split the version into major, minor, and patch
-    IFS='.' read -r -a VERSION_PARTS <<< "$CURRENT_VERSION"
-    MAJOR=${VERSION_PARTS[0]}
-    MINOR=${VERSION_PARTS[1]}
-    PATCH=${VERSION_PARTS[2]}
+#     # Split the version into major, minor, and patch
+#     IFS='.' read -r -a VERSION_PARTS <<< "$CURRENT_VERSION"
+#     MAJOR=${VERSION_PARTS[0]}
+#     MINOR=${VERSION_PARTS[1]}
+#     PATCH=${VERSION_PARTS[2]}
     
-    # Bump the patch version
-    NEW_PATCH=$((PATCH+1))
-    NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
+#     # Bump the patch version
+#     NEW_PATCH=$((PATCH+1))
+#     NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
     
-    echo "New version to be published: $NEW_VERSION"
+#     echo "New version to be published: $NEW_VERSION"
 
-    # Update the vss-extension.json file with the new version
-    node -e "
-    const fs = require('fs');
-    const filePath = './vss-extension.json';
-    const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    extension.version = '$NEW_VERSION';
-    fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
-    console.log('Updated version in vss-extension.json:', extension.version);
-    "
-  displayName: 'Check Current Version and Bump Patch Version'
-  workingDirectory: $(System.DefaultWorkingDirectory)
+#     # Update the vss-extension.json file with the new version
+#     node -e "
+#     const fs = require('fs');
+#     const filePath = './vss-extension.json';
+#     const extension = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+#     extension.version = '$NEW_VERSION';
+#     fs.writeFileSync(filePath, JSON.stringify(extension, null, 2));
+#     console.log('Updated version in vss-extension.json:', extension.version);
+#     "
+#   displayName: 'Check Current Version and Bump Patch Version'
+#   workingDirectory: $(System.DefaultWorkingDirectory)
 
-# Step 8: Publish the extension to Azure DevOps
-- script: |
-    tfx extension publish --manifest-globs vss-extension.json --share-with $(organizationName) --token $(adoPat)
-  displayName: 'Publish Extension to Azure DevOps'
+# # Step 8: Publish the extension to Azure DevOps
+# - script: |
+#     tfx extension publish --manifest-globs vss-extension.json --share-with $(organizationName) --token $(adoPat)
+#   displayName: 'Publish Extension to Azure DevOps'
 
 # Step 8: Use the custom task published by the extension
 - task: terraform-summary-pr-commenter-task@1
