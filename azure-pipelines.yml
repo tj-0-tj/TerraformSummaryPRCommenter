@@ -27,19 +27,19 @@ steps:
 # Step 2: Install dependencies (npm packages)
 - script: | 
     
-    cd TerraformSummaryPrCommenterTask
+    cd terraform-summary-pr-commenter-task
     npm install
   displayName: 'Install npm dependencies'
 
 # - script: |
-#     cd TerraformSummaryPrCommenterTask
+#     cd terraform-summary-pr-commenter-task
 #     npm prune --production
 #   displayName: 'Prune node_modules for Production'
-# # Step 4: Clean up unnecessary files in node_modules in the TerraformSummaryPrCommenterTask directory
+# # Step 4: Clean up unnecessary files in node_modules in the terraform-summary-pr-commenter-task directory
 # - script: |
-#     cd TerraformSummaryPrCommenterTask
+#     cd terraform-summary-pr-commenter-task
 #     find node_modules -name "test" -o -name "*.md" -o -name "*.yml" -o -name "*.map" -type d -exec rm -rf {} +
-#   displayName: 'Clean up node_modules in TerraformSummaryPrCommenterTask'
+#   displayName: 'Clean up node_modules in terraform-summary-pr-commenter-task'
 
 # # Step 6: Install TFX CLI globally
 # - script: |
@@ -89,7 +89,7 @@ steps:
   inputs:
     ADO_STAGE_NAME: 'Test Stage pipeline'
     GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
-    TERRAFORM_PLAN_PATH: './TerraformSummaryPrCommenterTask/terraform-plan.json'
+    TERRAFORM_PLAN_PATH: './terraform-summary-pr-commenter-task/terraform-plan.json'
     GITHUB_OWNER: tj-0-tj
     GITHUB_REPO: tf-rnd-azure-modules
     GITHUB_ISSUE_NUMBER: '5'
