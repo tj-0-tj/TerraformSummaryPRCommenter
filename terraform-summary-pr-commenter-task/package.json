@@ -1,0 +1,33 @@
+{
+  "name": "terraform-summary-pr-commenter-task",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "azure-pipelines-task-lib": "^4.17.3",
+    "dotenv": "^16.4.5",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.17.10",
+    "@types/node": "^22.7.5",
+    "typescript": "^5.6.3"
+  },
+  "files": [
+    "./dist/index.js",
+    "task.json",
+    "node_modules/axios",
+    "node_modules/lodash",
+    "node_modules/dotenv",
+    "node_modules/azure-pipelines-task-lib"
+  ]
+}

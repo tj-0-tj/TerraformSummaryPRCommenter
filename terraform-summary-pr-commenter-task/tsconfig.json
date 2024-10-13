@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ES6",               // Use "ES6" for modern module system
+    "target": "ES2022",            // Ensure you're targeting the right ECMAScript version
+    "moduleResolution": "node",    // Ensure modules are resolved like in Node.js
+    "esModuleInterop": true,       // Enable compatibility for CommonJS modules like `require`
+    "resolveJsonModule": true,     // Allow importing .json files if needed
+    "skipLibCheck": true,          // Skip checking types in node_modules
+    "forceConsistentCasingInFileNames": true, // Enforce case-sensitive imports
+    "strict": true,                // Enable strict type-checking options
+    "outDir": "./dist",            // Output directory for the compiled JS files
+    "rootDir": "./src",            // Root directory of your source files
+    "typeRoots": ["./node_modules/@types"] // Resolve types from node_modules/@types
+  },
+  "include": ["src/**/*.ts"],       // Include all TypeScript files in the src folder
+  "exclude": ["node_modules"]       // Exclude the node_modules folder
+}
