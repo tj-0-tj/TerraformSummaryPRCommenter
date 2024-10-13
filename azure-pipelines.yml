@@ -84,16 +84,16 @@ steps:
   displayName: 'Publish Extension to Azure DevOps'
 
 # Step 8: Use the custom task published by the extension
-# - task: terraform-summary-pr-commenter-task@1
-#   inputs:
-#     ADO_STAGE_NAME: 'Test Stage'
-#     GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
-#     TERRAFORM_PLAN_PATH: './TerraformSummaryPrCommenterTask/terraform-plan.json'
-#     GITHUB_OWNER: tj-0-tj
-#     GITHUB_REPO: tf-rnd-azure-modules
-#     GITHUB_ISSUE_NUMBER: '5'
-#     ADO_JOB_NAME: AIPL_SERVICES_CTL_FCT1
-#     ADO_JOB_LINK: '#joblink'
-#     ADO_STAGE_LINK: '#stagelink'
-#     ENVIRONMENT: "DEV"
-#   displayName: 'Run Custom Task'
+- task: terraform-summary-pr-commenter-task
+  inputs:
+    ADO_STAGE_NAME: 'Test Stage'
+    GITHUB_TOKEN: '$(GH-PAT)'  # Secure variable from pipeline secrets
+    TERRAFORM_PLAN_PATH: './TerraformSummaryPrCommenterTask/terraform-plan.json'
+    GITHUB_OWNER: tj-0-tj
+    GITHUB_REPO: tf-rnd-azure-modules
+    GITHUB_ISSUE_NUMBER: '5'
+    ADO_JOB_NAME: AIPL_SERVICES_CTL_FCT1
+    ADO_JOB_LINK: '#joblink'
+    ADO_STAGE_LINK: '#stagelink'
+    ENVIRONMENT: "DEV"
+  displayName: 'Run Custom Task'
