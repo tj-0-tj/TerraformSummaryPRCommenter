@@ -1,4 +1,5 @@
 trigger:
+
 - main
 
 pool:
@@ -98,4 +99,3 @@ steps:
     ADO_STAGE_LINK: '#stagelink'
     ENVIRONMENT: "DEV"
   displayName: 'Run Custom Task'
-
