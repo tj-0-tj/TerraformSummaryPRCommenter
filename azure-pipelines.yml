@@ -27,7 +27,7 @@ steps:
 # Step 2: Install dependencies (npm packages)
 - script: | 
     
-    cd terraform-summary-pr-commenter-task
+    cd terraform-summary-pr-commenter
     npm install
   displayName: 'Install npm dependencies'
 
